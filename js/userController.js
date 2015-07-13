@@ -9,11 +9,11 @@
 		vm.users = [];
 
 		vm.userModel = {
-			userName: "",
-			userAge: null,
-			userTown: "",
-			userAvatar: ""
-		}
+			name: "",
+			age: null,
+			town: "",
+			avatar: ""
+		};
 
 		vm.showNewUserForm = false;
 		vm.showUserList = true;
@@ -22,17 +22,11 @@
 
 			var $ = vm.userModel;
 
-			vm.users.push(new ShopUser(
-				$.userName,
-				$.userAge,
-				$.userTown,
-				$.userAvatar
-			));
+			vm.users.push(new shopUser($));
 
-			$.userName = "";
-			$.userAge = "";
-			$.userTown = "";
-			$.userAvatar = "";
+			for (var prop in $) {
+				$[prop] = "";
+			}
 		};
 
 		vm.toggle = function(target) {
@@ -44,13 +38,19 @@
 		}
 	}
 
-	function ShopUser(name, age, townOfBirth, avatar) {
-		this.name = name || "noname";
-		this.age = age || getRandomNmbr(16, 100);
-		this.town = townOfBirth || "-";
-		this.avatar = avatar || "../lesson_8/img/defaultAvatar.jpg";
+	function shopUser(model) {
 
+		var templateModel = {
+			name: "noname",
+			age: getRandomNmbr(16, 100),
+			town: "-",
+			avatar: "../lesson_8/img/defaultAvatar.jpg"
+		};
 		var shopCart = [];
+
+		for (var prop in model) {
+			this[prop] = model[prop] ? model[prop] : templateModel[prop];
+		}
 
 		//future feature
 		function addToMyCart(item) {

@@ -21,13 +21,11 @@
 			
 			var $ = vm.itemModel;
 
-			vm.items.push(new shopItem(
-				$.name,
-				$.price
-			));
+			vm.items.push(new shopItem($));
 
-			$.name = "";
-			$.price = "";
+			for (var prop in $) {
+				$[prop] = "";
+			}
 		};
 
 		vm.toggle = function(target) {
@@ -39,9 +37,15 @@
 		}
 	}
 
-	function shopItem(name, price) {
-		this.name = name;
-		this.price = price || getRandomNmbr(1, 100);
+	function shopItem(model) {
+		var templateModel = {
+			name: "???",
+			price: getRandomNmbr(16, 100)
+		};
+
+		for (var prop in model) {
+			this[prop] = model[prop] ? model[prop] : templateModel[prop];
+		}
 
 		return {
 			name: this.name,

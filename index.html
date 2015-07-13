@@ -10,16 +10,16 @@
 <section ng-controller="userController as userCtrl" ng-cloak>
 	<button id="newUser" ng-hide="userCtrl.showNewUserForm" ng-click="userCtrl.toggle('showNewUserForm')">Add user</button>
 	<div id="newUserForm" ng-show="userCtrl.showNewUserForm">
-		<input type="text" placeholder="Name..." ng-model="userCtrl.userModel.userName"><br>
-		<input type="text" placeholder="Age..." ng-model="userCtrl.userModel.userAge"><br>
-		<input type="text" placeholder="Town..." ng-model="userCtrl.userModel.userTown"><br>
-		<input type="text" placeholder="Avatar URL..." ng-model="userCtrl.userModel.userAvatar"><br>
+		<input type="text" placeholder="Name..." ng-model="userCtrl.userModel.name"><br>
+		<input type="text" placeholder="Age..." ng-model="userCtrl.userModel.age"><br>
+		<input type="text" placeholder="Town..." ng-model="userCtrl.userModel.town"><br>
+		<input type="text" placeholder="Avatar URL..." ng-model="userCtrl.userModel.avatar"><br>
 		<button id="submitNewUser" ng-click="userCtrl.addUser()">Submit</button>
 		<button ng-click="userCtrl.toggle('showNewUserForm')">Cancel</button>
 	</div>
 
 	<div id="userList">
-		<span>Total users: {{users.length}}</span>
+		<span>Total users: {{userCtrl.users.length}}</span>
 		<input type="text" placeholder="Find by name..." id="findUserByName" ng-model="findBy.name">
 		<button id="showHideUsers" ng-click="userCtrl.toggle('showUserList')">{{ userCtrl.showUserList ? "Hide" : "Show" }} User List</button>
 		<table ng-show="userCtrl.showUserList">
@@ -52,7 +52,7 @@
 	</div>
 
 	<div>
-		<span>Total items: {{items.length}}</span>
+		<span>Total items: {{shopCtrl.items.length}}</span>
 		<input type="text" placeholder="Find items..." id="findItem" ng-model="findByAnything">
 		<button id="showHideItems" ng-click="shopCtrl.toggle('showItemList')">{{ shopCtrl.showItemList ? "Hide" : "Show"}} items</button>
 

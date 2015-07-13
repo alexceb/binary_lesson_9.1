@@ -7,22 +7,22 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<section ng-controller="userController" ng-cloak>
-	<button id="newUser" ng-hide="showNewUserForm" ng-click="toggle('showNewUserForm')">Add user</button>
-	<div id="newUserForm" ng-show="showNewUserForm">
-		<input type="text" placeholder="Name..." ng-model="userModel.userName"><br>
-		<input type="text" placeholder="Age..." ng-model="userModel.userAge"><br>
-		<input type="text" placeholder="Town..." ng-model="userModel.userTown"><br>
-		<input type="text" placeholder="Avatar URL..." ng-model="userModel.userAvatar"><br>
-		<button id="submitNewUser" ng-click="addUser()">Submit</button>
-		<button ng-click="toggle('showNewUserForm')">Cancel</button>
+<section ng-controller="userController as userCtrl" ng-cloak>
+	<button id="newUser" ng-hide="userCtrl.showNewUserForm" ng-click="userCtrl.toggle('showNewUserForm')">Add user</button>
+	<div id="newUserForm" ng-show="userCtrl.showNewUserForm">
+		<input type="text" placeholder="Name..." ng-model="userCtrl.userModel.userName"><br>
+		<input type="text" placeholder="Age..." ng-model="userCtrl.userModel.userAge"><br>
+		<input type="text" placeholder="Town..." ng-model="userCtrl.userModel.userTown"><br>
+		<input type="text" placeholder="Avatar URL..." ng-model="userCtrl.userModel.userAvatar"><br>
+		<button id="submitNewUser" ng-click="userCtrl.addUser()">Submit</button>
+		<button ng-click="userCtrl.toggle('showNewUserForm')">Cancel</button>
 	</div>
 
 	<div id="userList">
 		<span>Total users: {{users.length}}</span>
 		<input type="text" placeholder="Find by name..." id="findUserByName" ng-model="findBy.name">
-		<button id="showHideUsers" ng-click="toggle('showUserList')">{{ showUserList ? "Hide" : "Show" }} User List</button>
-		<table ng-show="showUserList">
+		<button id="showHideUsers" ng-click="userCtrl.toggle('showUserList')">{{ userCtrl.showUserList ? "Hide" : "Show" }} User List</button>
+		<table ng-show="userCtrl.showUserList">
 			<tr>
 				<th>#</th>
 				<th>Avatar</th>
@@ -30,43 +30,43 @@
 				<th>Age</th>
 				<th>Origin</th>
 			</tr>
-			<tr ng-repeat="user in users | filter: findBy">
+			<tr ng-repeat="user in userCtrl.users | filter: findBy">
 				<td>{{$index + 1}}</td>
 				<td><img ng-src="{{user.avatar}}"></td>
 				<td>{{user.name | uppercase}}</td>
 				<td>{{user.age}}</td>
 				<td>{{user.town}}</td>
-				<td><i class="fa fa-times" id="clear" ng-click="removeUser($index)"></i></td>
+				<td><i class="fa fa-times" id="clear" ng-click="userCtrl.removeUser($index)"></i></td>
 			</tr>
 		</table>
 	</div>
 </section>
 
-<section ng-controller="shopController" ng-cloak>
-	<button id="newItem" ng-hide="showNewItemForm" ng-click="toggle('showNewItemForm')">New item</button>
-	<div id="newItemForm" ng-show="showNewItemForm">
-		<input type="text" id="itemName" placeholder="Name..." ng-model="itemModel.name"><br>
-		<input type="text" id="itemPrice" placeholder="Price..." ng-model="itemModel.price"><br>
-		<button id="submitNewItem" ng-click="addItem()">Add</button>
-		<button ng-click="toggle('showNewItemForm')">Cancel</button>
+<section ng-controller="shopController as shopCtrl" ng-cloak>
+	<button id="newItem" ng-hide="shopCtrl.showNewItemForm" ng-click="shopCtrl.toggle('showNewItemForm')">New item</button>
+	<div id="newItemForm" ng-show="shopCtrl.showNewItemForm">
+		<input type="text" id="itemName" placeholder="Name..." ng-model="shopCtrl.itemModel.name"><br>
+		<input type="text" id="itemPrice" placeholder="Price..." ng-model="shopCtrl.itemModel.price"><br>
+		<button id="submitNewItem" ng-click="shopCtrl.addItem()">Add</button>
+		<button ng-click="shopCtrl.toggle('showNewItemForm')">Cancel</button>
 	</div>
 
 	<div>
 		<span>Total items: {{items.length}}</span>
 		<input type="text" placeholder="Find items..." id="findItem" ng-model="findByAnything">
-		<button id="showHideItems" ng-click="toggle('showItemList')">{{ showItemList ? "Hide" : "Show"}} items</button>
+		<button id="showHideItems" ng-click="shopCtrl.toggle('showItemList')">{{ shopCtrl.showItemList ? "Hide" : "Show"}} items</button>
 
-		<table ng-show="showItemList">
+		<table ng-show="shopCtrl.showItemList">
 		<tr>
 			<th>#</th>
 			<th>Item</th>
 			<th>Price</th>
 		</tr>
- 		<tr ng-repeat='item in items | filter: findByAnything'>
+ 		<tr ng-repeat='item in shopCtrl.items | filter: findByAnything'>
  			<td>{{$index + 1}}</td>
  			<td>{{item.name}}</td>
  			<td>{{item.price | currency}}</td>
- 			<td><i class="fa fa-times" id="clear" ng-click="removeItem($index)"></i></td>
+ 			<td><i class="fa fa-times" id="clear" ng-click="shopCtrl.removeItem($index)"></i></td>
  		</tr>
 		</table>
 	</div>

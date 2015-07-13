@@ -38,5 +38,19 @@
 			vm.items.splice(index, 1);
 		}
 	}
+
+	function shopItem(name, price) {
+		this.name = name;
+		this.price = price || getRandomNmbr(1, 100);
+
+		return {
+			name: this.name,
+			price: this.price
+		}
+	}
+
+	function getRandomNmbr(min, max) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
 	
 })();

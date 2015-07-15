@@ -1,83 +1,28 @@
 <!DOCTYPE html>
-<html ng-app="onlineShop">
+<html ng-app="listApp">
 <head>
 	<title>Task #7</title>
 	<meta charset="UTF-8">
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
-<section ng-controller="userController as userCtrl" ng-cloak>
-	<button id="newUser" ng-hide="userCtrl.showNewUserForm" ng-click="userCtrl.toggle('showNewUserForm')">Add user</button>
-	<div id="newUserForm" ng-show="userCtrl.showNewUserForm">
-		<input type="text" placeholder="Name..." ng-model="userCtrl.userModel.name"><br>
-		<input type="text" placeholder="Age..." ng-model="userCtrl.userModel.age"><br>
-		<input type="text" placeholder="Town..." ng-model="userCtrl.userModel.town"><br>
-		<input type="text" placeholder="Avatar URL..." ng-model="userCtrl.userModel.avatar"><br>
-		<button id="submitNewUser" ng-click="userCtrl.addUser()">Submit</button>
-		<button ng-click="userCtrl.toggle('showNewUserForm')">Cancel</button>
-	</div>
-
-	<div id="userList">
-		<span>Total users: {{userCtrl.users.length}}</span>
-		<input type="text" placeholder="Find by name..." id="findUserByName" ng-model="findBy.name">
-		<button id="showHideUsers" ng-click="userCtrl.toggle('showUserList')">{{ userCtrl.showUserList ? "Hide" : "Show" }} User List</button>
-		<table ng-show="userCtrl.showUserList">
-			<tr>
-				<th>#</th>
-				<th>Avatar</th>
-				<th>Name</th>
-				<th>Age</th>
-				<th>Origin</th>
-			</tr>
-			<tr ng-repeat="user in userCtrl.users | filter: findBy">
-				<td>{{$index + 1}}</td>
-				<td><img ng-src="{{user.avatar}}"></td>
-				<td>{{user.name | uppercase}}</td>
-				<td>{{user.age}}</td>
-				<td>{{user.town}}</td>
-				<td><i class="fa fa-times" id="clear" ng-click="userCtrl.removeUser($index)"></i></td>
-			</tr>
-		</table>
-	</div>
-</section>
-
-<section ng-controller="shopController as shopCtrl" ng-cloak>
-	<button id="newItem" ng-hide="shopCtrl.showNewItemForm" ng-click="shopCtrl.toggle('showNewItemForm')">New item</button>
-	<div id="newItemForm" ng-show="shopCtrl.showNewItemForm">
-		<input type="text" id="itemName" placeholder="Name..." ng-model="shopCtrl.itemModel.name"><br>
-		<input type="text" id="itemPrice" placeholder="Price..." ng-model="shopCtrl.itemModel.price"><br>
-		<button id="submitNewItem" ng-click="shopCtrl.addItem()">Add</button>
-		<button ng-click="shopCtrl.toggle('showNewItemForm')">Cancel</button>
-	</div>
-
-	<div>
-		<span>Total items: {{shopCtrl.items.length}}</span>
-		<input type="text" placeholder="Find items..." id="findItem" ng-model="findByAnything">
-		<button id="showHideItems" ng-click="shopCtrl.toggle('showItemList')">{{ shopCtrl.showItemList ? "Hide" : "Show"}} items</button>
-
-		<table ng-show="shopCtrl.showItemList">
-		<tr>
-			<th>#</th>
-			<th>Item</th>
-			<th>Price</th>
-		</tr>
- 		<tr ng-repeat='item in shopCtrl.items | filter: findByAnything'>
- 			<td>{{$index + 1}}</td>
- 			<td>{{item.name}}</td>
- 			<td>{{item.price | currency}}</td>
- 			<td><i class="fa fa-times" id="clear" ng-click="shopCtrl.removeItem($index)"></i></td>
- 		</tr>
-		</table>
-	</div>
-	
-</section>
+<body ng-controller="listController as listCtrl" ng-cloak>
+<div id="background"></div>
+<ul id='list'>
+	<li ng-repeat='item in listCtrl.items track by $index'>
+		<img ng-src="{{ item.thumbnailUrl }}" show-full-picture>
+		<img class='big-picture' ng-src="{{ item.url }}">
+		<div class='title'>{{ item.title }}</div>
+	</li>
+</ul>
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-resource.js"></script>
 <script type="text/javascript" src="js/app.js"></script>
-<script type="text/javascript" src="js/userController.js"></script>
-<script type="text/javascript" src="js/shopController.js"></script>
+<script type="text/javascript" src="js/app.factory.js"></script>
+<script type="text/javascript" src="js/app.controller.js"></script>
+<script type="text/javascript" src="js/app.directive.js"></script>
+
 </body>
 </html>

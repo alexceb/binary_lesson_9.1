@@ -11,7 +11,6 @@
 			getDataResource: getDataResource
 		}
 
-
 		//getting data from API using $http
 		function getDataHTTP(from, to) {
 			var data = [],
